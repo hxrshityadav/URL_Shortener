@@ -1,0 +1,393 @@
+{
+  "nav": {
+    "home": "Home",
+    "pricing": "Pricing",
+    "about": "About",
+    "privacy": "Privacy",
+    "dashboard": "Dashboard"
+  },
+  "aria": {
+    "mainNav": "Main",
+    "mobileNav": "Mobile main",
+    "themeToLight": "Switch to light mode",
+    "themeToDark": "Switch to dark mode",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "chooseLanguage": "Choose language",
+    "languageMenu": "Language menu"
+  },
+  "auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "username": "Username",
+    "usernameRequired": "Username is required",
+    "usernamePlaceholder": "Enter your username",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "passwordPlaceholder": "Enter your password",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailPlaceholder": "you@example.com",
+    "chooseUsername": "Choose a username",
+    "choosePassword": "Choose a secure password",
+    "welcomeBack": "Welcome back",
+    "signInSubtitle": "Sign in to your Lynkforge account",
+    "signingIn": "Signing in…",
+    "signIn": "Sign in",
+    "noAccount": "Don't have an account?",
+    "loginFailed": "Login failed. Check your credentials.",
+    "welcomeToast": "Welcome back",
+    "createAccount": "Create an account",
+    "registerSubtitle": "Start shortening links for free",
+    "creatingAccount": "Creating account…",
+    "createAccountButton": "Create account",
+    "haveAccount": "Already have an account?",
+    "registerSuccess": "Account created — you can log in now",
+    "registerFailed": "Registration failed",
+    "registerNetworkHint": "Can't reach the API. Set VITE_BACKEND_URL in .env and ensure the Spring Boot server is running (and Postgres is up).",
+    "forgotPassword": "Forgot password?",
+    "orContinueWith": "Or continue with"
+  },
+  "footer": {
+    "tagline": "Simplifying URL shortening for efficient sharing with real-time analytics.",
+    "product": "Product",
+    "account": "Account",
+    "legal": "Legal",
+    "connect": "Connect",
+    "language": "Language",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "email": "Email",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "accessibility": "Accessibility Statement",
+    "privacyManager": "Privacy Manager",
+    "copyright": "© {{year}} Lynkforge. All rights reserved."
+  },
+  "landing": {
+    "heroBadge": "URL shortener + analytics",
+    "heroTitle1": "Short Links That Drive",
+    "heroTitle2": "Real Growth",
+    "heroSubtitle": "Create branded short URLs, monitor clicks in real time, and gain actionable insights that help you improve campaign performance.",
+    "getStarted": "Get started",
+    "learnMore": "Learn more",
+    "stat1a": "Real-time",
+    "stat1b": "redirects",
+    "stat2a": "Click",
+    "stat2b": "analytics",
+    "stat3a": "Reliable",
+    "stat3b": "uptime",
+    "toastPasteUrl": "Please paste a URL first",
+    "toastCopied": "Short URL copied to clipboard",
+    "toastLoginMore": "Please log in to shorten more links",
+    "toastShortenFail": "Could not create short URL",
+    "toastLoginFeature": "Please log in to use this feature",
+    "featurePlaceholder": "Paste your URL here... (e.g. https://mysite.com/very-long-page)",
+    "shortenNow": "Shorten Now",
+    "shortening": "Shortening…",
+    "featCustom": "Custom Link",
+    "featPassword": "Password Protection",
+    "featExpiry": "Set Expiration",
+    "featQr": "Generate QR Code",
+    "featuresHeading": "Ship links your team trusts",
+    "featuresSub": "One surface for shortening, sharing, and reading the signal behind every click.",
+    "cardSimpleTitle": "Simple URL Shortening",
+    "cardSimpleDesc": "Create short, memorable links in seconds. Clean interface, zero friction.",
+    "cardAnalyticsTitle": "Powerful Analytics",
+    "cardAnalyticsDesc": "Track every click. Visualize traffic over time and understand your audience.",
+    "cardEditTitle": "Edit anytime",
+    "cardEditDesc": "Rename and retarget short links anytime — reshape campaigns without breaking shared URLs.",
+    "cardShareTitle": "Share everywhere",
+    "cardShareDesc": "Drop into chats, decks, email, or QR codes. Lightning-fast redirects with 99.9% uptime."
+  },
+  "pricing": {
+    "free": "Free",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "title": "Pricing that scales with you",
+    "subtitle": "Start free, upgrade when you need deeper analytics and team workflows.",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "savePct": "SAVE 17%",
+    "billingToggle": "Toggle billing period",
+    "switchCurrency": "Switch",
+    "mostPopular": "Most popular",
+    "ctaPanelBadge": "Start free, pay as you grow",
+    "ctaPanelTitle": "Begin with a free trial. Upgrade when you're ready.",
+    "ctaPanelSub": "Everything you need to shorten, share, and understand engagement—without clutter.",
+    "ctaPanelButton": "Get started",
+    "paymentsUsdOnly": "Payments are enabled in USD only for now.",
+    "monthlyOnlyForNow": "Only monthly billing is enabled for now.",
+    "paymentSdkLoadFailed": "Could not load the payment window. Check your connection and try again.",
+    "paymentInitFailed": "Could not start checkout. Please try again in a moment.",
+    "paymentStarted": "Payment started — we’ll upgrade your plan after confirmation.",
+    "plan": {
+      "starter": {
+        "name": "Starter",
+        "blurb": "For personal links and quick sharing.",
+        "cta": "Get started",
+        "feat1": "100 links",
+        "feat2": "50 QR Codes",
+        "feat3": "Unlimited clicks",
+        "feat4": "Ad removal",
+        "feat5": "Custom domains",
+        "feat6": "Campaigns",
+        "feat7": "Advanced analytics",
+        "feat8": "Priority support"
+      },
+      "pro": {
+        "name": "Pro",
+        "blurb": "For creators and small teams who track growth.",
+        "cta": "Start Pro",
+        "feat1": "5,000 links",
+        "feat2": "2,500 QR Codes",
+        "feat3": "Unlimited clicks",
+        "feat4": "5 custom domains",
+        "feat5": "50 campaigns",
+        "feat6": "Ad removal",
+        "feat7": "Advanced analytics",
+        "feat8": "Priority support"
+      },
+      "business": {
+        "name": "Business",
+        "blurb": "For teams that need control and clarity.",
+        "cta": "Contact sales",
+        "feat1": "15,000 links",
+        "feat2": "7,500 QR Codes",
+        "feat3": "Unlimited clicks",
+        "feat4": "15 custom domains",
+        "feat5": "150 campaigns",
+        "feat6": "Ad removal",
+        "feat7": "Advanced analytics",
+        "feat8": "Priority support"
+      }
+    }
+  },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "subtitle": "Quick answers about URL shorteners, Lynkforge features, and how to get the most from your links.",
+    "items": {
+      "whatOffer": {
+        "q": "What does Lynkforge offer?",
+        "a": "Lynkforge shortens long URLs into clean, shareable links and gives you a dashboard to see clicks over time. You can also use optional features like custom aliases, passwords, expiry, and QR codes when you are signed in."
+      },
+      "trackPerf": {
+        "q": "How can I track performance of my short links?",
+        "a": "After you sign in and create links, open the Dashboard. Each link shows click counts, and you can open Analytics per link to see activity across a date range."
+      },
+      "whatIsShortener": {
+        "q": "What is a URL shortener?",
+        "a": "A URL shortener takes a long web address and returns a short one that redirects visitors to the same destination. It is easier to share in messages, slides, and print."
+      },
+      "whyUse": {
+        "q": "Why would I use a URL shortener?",
+        "a": "Shorter links look cleaner, use fewer characters in posts, and are simpler to remember. Combined with analytics, you get signal on how often links are clicked without changing your destination URLs."
+      },
+      "customPassword": {
+        "q": "Can I use a custom link or protect a link with a password?",
+        "a": "Yes. Log in and use the Home page options for custom aliases, password protection, and expiration. Anonymous visitors get one free shorten from the home bar; more advanced options require an account."
+      },
+      "qrCodes": {
+        "q": "Does Lynkforge support QR codes?",
+        "a": "Yes. Signed-in users can generate a QR code for a short link from the advanced options on the home page, so people can scan and open your destination quickly."
+      },
+      "guestUse": {
+        "q": "Can I try Lynkforge without creating an account?",
+        "a": "You can shorten one link from the home page without logging in (subject to browser cookie rules). For more links and full features, create a free account."
+      },
+      "privacyLegal": {
+        "q": "Where are privacy and legal details?",
+        "a": "Read our privacy, terms, and cookie policies using the links below. You can also open the Privacy Manager to review cookie-related preferences where applicable."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Monitor clicks over time and manage shortcuts.",
+    "activity": "Activity ({{start}} → {{end}})",
+    "range": "Range",
+    "preset7": "7D",
+    "preset30": "30D",
+    "preset90": "90D",
+    "presetCustom": "Custom",
+    "exportCsv": "Export CSV",
+    "start": "Start",
+    "end": "End",
+    "totalClicks": "Total clicks",
+    "vsPrev": "vs prev:",
+    "clicksToday": "Clicks today",
+    "today": "Today",
+    "activeLinks": "Active links",
+    "totalLinksOwned": "Total links you own",
+    "topLink": "Top link",
+    "noClicksYet": "No clicks yet",
+    "clicksShort": "{{count}} clicks",
+    "noDataTitle": "No data for this period",
+    "noDataSub": "No clicks between {{start}} and {{end}}. Share a link to start collecting activity.",
+    "topReferrers": "Top referrers",
+    "devices": "Devices",
+    "noReferrerData": "No referrer data yet.",
+    "noDeviceData": "No device data yet.",
+    "breakdownNeedsPro": "Referrer and device breakdown need a Pro or Business plan. Summary and chart stay available on Starter.",
+    "exportForbidden": "CSV export needs a Pro or Business plan.",
+    "exportFailed": "Could not download the export.",
+    "linkCount_one": "{{count}} short link",
+    "linkCount_other": "{{count}} short links",
+    "noLinksYetText": "No links yet",
+    "createShortUrl": "Create short URL",
+    "emptyTitle": "You haven't created a short link yet",
+    "emptySub": "Use the button above to paste a URL and copy your first Lynkforge link."
+  },
+  "about": {
+    "heroAbout": "About",
+    "heroSubtitle": "A URL shortener with analytics tuned for clarity — spacing you can trust, blue accents where they count, and themes that stay tasteful whether the room is lit or dark.",
+    "blocks": {
+      "simple": {
+        "title": "Simple URL Shortening",
+        "body": "Create short, memorable links in seconds. Clean interface, zero friction."
+      },
+      "analytics": {
+        "title": "Powerful Analytics",
+        "body": "Track every click. Visualize traffic over time and understand your audience."
+      },
+      "edit": {
+        "title": "Edit anytime",
+        "body": "Rename and retarget short links anytime — reshape campaigns without breaking shared URLs."
+      },
+      "share": {
+        "title": "Share everywhere",
+        "body": "Drop into chats, decks, email, or QR codes. Lightning-fast redirects with 99.9% uptime."
+      }
+    },
+    "stats": {
+      "ariaLabel": "Lynkforge stats",
+      "powering": "Powering",
+      "links": "Links",
+      "serving": "Serving",
+      "clicks": "Clicks",
+      "trustedBy": "Trusted By",
+      "happyCustomers": "Happy Customers"
+    },
+    "reviews": {
+      "title": "What customers are saying",
+      "subtitle": "A few notes from people who ship links daily—creators, developers, and teams.",
+      "venkatesh": {
+        "role": "Marketer",
+        "body": "I've been using Lynkforge for a while and it genuinely helped me keep links organized and track what's performing—without a noisy interface."
+      },
+      "dawid": {
+        "role": "Web Developer",
+        "body": "Custom aliases, expiry, and QR in one place is exactly what I needed. Everything feels fast, clean, and predictable."
+      },
+      "christian": {
+        "role": "Developer",
+        "body": "The dashboard is the best part—click stats are easy to read, and sharing links across channels is effortless."
+      },
+      "james": {
+        "role": "Digital Marketing Manager",
+        "body": "Lynkforge made our campaign links cleaner and easier to manage. The analytics are straightforward and actually useful for decision-making."
+      },
+      "lily": {
+        "role": "Social Media Strategist",
+        "body": "Short links that look good, plus quick insight into engagement. It helps us iterate faster without swapping out destination URLs."
+      },
+      "michael": {
+        "role": "Content Creator",
+        "body": "Simple, reliable, and polished. I can create, copy, and share in seconds—and the stats tell me what to double down on."
+      }
+    }
+  },
+  "common": {
+    "close": "Close",
+    "backToHome": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "unexpected": "Unexpected error — try again soon.",
+    "notFoundTitle": "Page not found",
+    "notFoundPage": "We can't seem to find the page you're looking for",
+    "backHome": "Back to home"
+  },
+  "privacyManager": {
+    "title": "Privacy Manager",
+    "effective": "Effective May 3, 2026",
+    "intro": "Take control of your privacy settings. Manage your cookie preferences and marketing consent choices anytime.",
+    "summaryRequired": "Required cookies",
+    "summaryPerformance": "Performance cookies",
+    "summaryAdvertising": "Advertising cookies",
+    "summarySocial": "Social network cookies",
+    "summaryNone": "No cookies enabled",
+    "currentlyEnabled": "Currently enabled",
+    "cookieManagement": "Cookie management",
+    "cookieMgmtDesc": "Control how cookies are used to improve your experience. Disabling required cookies may prevent login and core features from working.",
+    "requiredTitle": "Allow required cookies",
+    "requiredDesc": "Essential for login, security, and core functionality.",
+    "performanceTitle": "Performance cookies",
+    "performanceDesc": "Help us measure usage and improve reliability and speed.",
+    "advertisingTitle": "Advertising cookies",
+    "advertisingDesc": "Used to personalize or measure advertising. (Lynkforge currently does not run ads by default.)",
+    "socialTitle": "Social network cookies",
+    "socialDesc": "Enable social features like sharing or social login when available.",
+    "savePreferences": "Save preferences",
+    "toastSaved": "Privacy preferences saved (browser storage + cookie)",
+    "footerNote": "Note: Preferences are saved in local storage and a first-party cookie on this domain. Blocking required cookies can prevent login and core features from working."
+  },
+  "advancedShorten": {
+    "loggedInSubtitle": "Available for logged-in users",
+    "destinationUrl": "Destination URL",
+    "destinationPlaceholder": "https://example.com",
+    "customAlias": "Custom link (alias)",
+    "customAliasPlaceholder": "e.g. my-campaign",
+    "customAliasHint": "3–32 chars, letters/numbers, “_” or “-”.",
+    "password": "Password",
+    "passwordPlaceholder": "Set a password",
+    "passwordHint": "Redirect will require a password query parameter.",
+    "expiration": "Expiration",
+    "expiryHint": "After expiry, the short link returns 410.",
+    "qrIntro": "We’ll generate a QR code for your short link after creation.",
+    "creating": "Creating…",
+    "createCopy": "Create & copy",
+    "shortLinkLabel": "Short link",
+    "qrAlt": "QR code",
+    "toastPasteUrl": "Please paste a URL first",
+    "toastCopied": "Short URL copied to clipboard",
+    "toastFail": "Could not create short URL"
+  },
+  "createShortLink": {
+    "title": "New short link",
+    "subtitle": "Paste a destination URL — we'll copy the short link when it's ready.",
+    "destinationUrl": "Destination URL",
+    "urlPlaceholder": "https://example.com",
+    "urlRequired": "URL is required",
+    "creating": "Creating…",
+    "createCopy": "Create & copy",
+    "toastCopied": "Short URL copied to clipboard",
+    "toastFail": "Could not create short URL"
+  },
+  "redirectPage": {
+    "title": "Redirecting…",
+    "hint": "If nothing happens, check that your backend URL is configured correctly."
+  },
+  "linkCard": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "analytics": "Analytics",
+    "delete": "Delete",
+    "deleting": "Deleting…",
+    "deleteConfirm": "Delete this short link permanently? Analytics for it will be removed.",
+    "loadingAnalytics": "Loading analytics…",
+    "loadingAria": "Loading analytics",
+    "emptyTitle": "No data for this period",
+    "emptySub": "Share this link to see daily engagement in the chart below.",
+    "click_one": "{{count}} click",
+    "click_other": "{{count}} clicks"
+  },
+  "chart": {
+    "datasetLabel": "Total clicks",
+    "yTitle": "Clicks",
+    "xTitle": "Date",
+    "tooltipClicks": "Clicks: {{value}}"
+  }
+}
