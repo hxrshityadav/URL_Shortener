@@ -12,7 +12,7 @@ export const getApps = () => {
 }
 
 // url.localhost
-// url.lynkforge.com
+// url.Snipr.com
 export const getSubDomain = (location) => {
     const locationParts = location.split(".");
     const isLocalhost = locationParts.slice(-1)[0] === "localhost";

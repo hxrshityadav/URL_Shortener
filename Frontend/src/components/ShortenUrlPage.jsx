@@ -14,13 +14,13 @@ const ShortenUrlPage = () => {
   }, [url]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-transparent px-6 text-center text-lx-muted">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-bg-base px-6 text-center">
       <Loader2
-        className="size-8 animate-spin text-blue-600 dark:text-blue-400"
+        className="w-7 h-7 animate-spin text-primary"
         aria-hidden
       />
-      <p className="text-sm font-medium text-lx-foreground">{t("redirectPage.title")}</p>
-      <p className="max-w-xs text-xs text-lx-muted">{t("redirectPage.hint")}</p>
+      <p className="text-sm font-medium text-text-primary">{t("redirectPage.title")}</p>
+      <p className="max-w-xs text-xs text-text-muted">{t("redirectPage.hint")}</p>
     </div>
   );
 };

@@ -32,7 +32,7 @@
     "chooseUsername": "Choose a username",
     "choosePassword": "Choose a secure password",
     "welcomeBack": "Welcome back",
-    "signInSubtitle": "Sign in to your Lynkforge account",
+    "signInSubtitle": "Sign in to your Snipr account",
     "signingIn": "Signing in…",
     "signIn": "Sign in",
     "noAccount": "Don't have an account?",
@@ -64,7 +64,7 @@
     "cookiePolicy": "Cookie Policy",
     "accessibility": "Accessibility Statement",
     "privacyManager": "Privacy Manager",
-    "copyright": "© {{year}} Lynkforge. All rights reserved."
+    "copyright": "© {{year}} Snipr. All rights reserved."
   },
   "landing": {
     "heroBadge": "URL shortener + analytics",
@@ -167,11 +167,11 @@
   },
   "faq": {
     "heading": "Frequently Asked Questions",
-    "subtitle": "Quick answers about URL shorteners, Lynkforge features, and how to get the most from your links.",
+    "subtitle": "Quick answers about URL shorteners, Snipr features, and how to get the most from your links.",
     "items": {
       "whatOffer": {
-        "q": "What does Lynkforge offer?",
-        "a": "Lynkforge shortens long URLs into clean, shareable links and gives you a dashboard to see clicks over time. You can also use optional features like custom aliases, passwords, expiry, and QR codes when you are signed in."
+        "q": "What does Snipr offer?",
+        "a": "Snipr shortens long URLs into clean, shareable links and gives you a dashboard to see clicks over time. You can also use optional features like custom aliases, passwords, expiry, and QR codes when you are signed in."
       },
       "trackPerf": {
         "q": "How can I track performance of my short links?",
@@ -190,11 +190,11 @@
         "a": "Yes. Log in and use the Home page options for custom aliases, password protection, and expiration. Anonymous visitors get one free shorten from the home bar; more advanced options require an account."
       },
       "qrCodes": {
-        "q": "Does Lynkforge support QR codes?",
+        "q": "Does Snipr support QR codes?",
         "a": "Yes. Signed-in users can generate a QR code for a short link from the advanced options on the home page, so people can scan and open your destination quickly."
       },
       "guestUse": {
-        "q": "Can I try Lynkforge without creating an account?",
+        "q": "Can I try Snipr without creating an account?",
         "a": "You can shorten one link from the home page without logging in (subject to browser cookie rules). For more links and full features, create a free account."
       },
       "privacyLegal": {
@@ -238,7 +238,7 @@
     "noLinksYetText": "No links yet",
     "createShortUrl": "Create short URL",
     "emptyTitle": "You haven't created a short link yet",
-    "emptySub": "Use the button above to paste a URL and copy your first Lynkforge link."
+    "emptySub": "Use the button above to paste a URL and copy your first Snipr link."
   },
   "about": {
     "heroAbout": "About",
@@ -262,7 +262,7 @@
       }
     },
     "stats": {
-      "ariaLabel": "Lynkforge stats",
+      "ariaLabel": "Snipr stats",
       "powering": "Powering",
       "links": "Links",
       "serving": "Serving",
@@ -275,7 +275,7 @@
       "subtitle": "A few notes from people who ship links daily—creators, developers, and teams.",
       "venkatesh": {
         "role": "Marketer",
-        "body": "I've been using Lynkforge for a while and it genuinely helped me keep links organized and track what's performing—without a noisy interface."
+        "body": "I've been using Snipr for a while and it genuinely helped me keep links organized and track what's performing—without a noisy interface."
       },
       "dawid": {
         "role": "Web Developer",
@@ -287,7 +287,7 @@
       },
       "james": {
         "role": "Digital Marketing Manager",
-        "body": "Lynkforge made our campaign links cleaner and easier to manage. The analytics are straightforward and actually useful for decision-making."
+        "body": "Snipr made our campaign links cleaner and easier to manage. The analytics are straightforward and actually useful for decision-making."
       },
       "lily": {
         "role": "Social Media Strategist",
@@ -327,7 +327,7 @@
     "performanceTitle": "Performance cookies",
     "performanceDesc": "Help us measure usage and improve reliability and speed.",
     "advertisingTitle": "Advertising cookies",
-    "advertisingDesc": "Used to personalize or measure advertising. (Lynkforge currently does not run ads by default.)",
+    "advertisingDesc": "Used to personalize or measure advertising. (Snipr currently does not run ads by default.)",
     "socialTitle": "Social network cookies",
     "socialDesc": "Enable social features like sharing or social login when available.",
     "savePreferences": "Save preferences",

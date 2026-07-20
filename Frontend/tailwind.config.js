@@ -4,58 +4,80 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      spacing: {
-        navbar: "4.75rem",
-      },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Syne", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "Cascadia Code", "Fira Code", "monospace"],
       },
       colors: {
         bg: {
-          base: "#080808",
-          secondary: "#0F0F0F",
-          surface: "#141414",
-          elevated: "#1A1A1A",
-        },
-        accent: {
-          DEFAULT: "#4DFFB4",
-          hover: "#3DE8A0",
-          dim: "rgba(77,255,180,0.12)",
-          border: "rgba(77,255,180,0.25)",
+          base: "var(--bg-base)",
+          secondary: "var(--bg-secondary)",
+          surface: "var(--bg-surface)",
+          elevated: "var(--bg-elevated)",
+          inset: "var(--bg-inset)",
         },
         text: {
-          primary: "#FFFFFF",
-          secondary: "#A0A0A0",
-          muted: "#525252",
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          muted: "var(--text-muted)",
+          inverted: "var(--text-inverted)",
+        },
+        primary: {
+          DEFAULT: "var(--color-primary)",
+          hover: "var(--color-primary-hover)",
+          light: "var(--color-primary-light)",
+        },
+        secondary: "var(--color-secondary)",
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          hover: "var(--color-accent-hover)",
+          light: "var(--color-accent-light)",
+        },
+        destructive: {
+          DEFAULT: "var(--color-destructive)",
+          light: "var(--color-destructive-light)",
+        },
+        success: {
+          DEFAULT: "var(--color-success)",
+          light: "var(--color-success-light)",
+        },
+        warning: {
+          DEFAULT: "var(--color-warning)",
+          light: "var(--color-warning-light)",
         },
         border: {
-          default: "rgba(255,255,255,0.07)",
-          accent: "rgba(77,255,180,0.25)",
+          DEFAULT: "var(--border-default)",
+          hover: "var(--border-hover)",
+          focus: "var(--border-focus)",
         },
-        divider: "rgba(255,255,255,0.06)",
-        danger: "#FF4D4D",
-        warning: "#FFB84D",
       },
-      backgroundImage: {
-        brand: "linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)",
-        footer:
-          "linear-gradient(to right, #1e3a8a 0%, #3730a3 55%, #4f46e5 100%)",
-        footerDark:
-          "linear-gradient(to right, #0f172a 0%, #1e3a8a 55%, #1e40af 100%)",
+      spacing: {
+        navbar: "4rem",
+      },
+      borderRadius: {
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        xl: "var(--radius-xl)",
+        "2xl": "var(--radius-2xl)",
       },
       boxShadow: {
-        soft: "0 1px 3px 0 rgb(15 23 42 / 0.06), 0 1px 2px -1px rgb(15 23 42 / 0.06)",
-        lifted:
-          "0 10px 40px -12px rgb(15 23 42 / 0.12), 0 4px 16px -8px rgb(37 99 235 / 0.08)",
-        "nav-scrolled":
-          "0 4px 24px -8px rgb(15 23 42 / 0.1), 0 1px 0 rgb(226 232 240 / 1)",
-        "nav-scrolled-dark":
-          "0 8px 32px -12px rgb(0 0 0 / 0.4), 0 1px 0 rgb(31 41 55 / 0.85)",
+        xs: "var(--shadow-xs)",
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+        xl: "var(--shadow-xl)",
+      },
+      transitionDuration: {
+        fast: "var(--duration-fast)",
+        normal: "var(--duration-normal)",
+        slow: "var(--duration-slow)",
+      },
+      transitionTimingFunction: {
+        "ease-out-expo": "var(--ease-out)",
+        "ease-in-out-smooth": "var(--ease-in-out)",
       },
     },
   },
-
   plugins: [],
 };

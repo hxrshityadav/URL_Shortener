@@ -38,7 +38,7 @@ const CookiePage = () => {
 
           <section className="space-y-2">
             <h2 className="text-lg font-bold tracking-tight text-[#0f172a] dark:text-[#f8fafc]">
-              2) How Lynkforge uses cookies
+              2) How Snipr uses cookies
             </h2>
             <p>We use cookies for:</p>
             <ul className="list-disc space-y-2 pl-5">
@@ -73,7 +73,7 @@ const CookiePage = () => {
             </h2>
             <p>
               You can control cookies through your browser settings (block, delete, or limit third‑party
-              cookies). If you block necessary cookies, parts of Lynkforge may not function correctly.
+              cookies). If you block necessary cookies, parts of Snipr may not function correctly.
             </p>
           </section>
 

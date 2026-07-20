@@ -37,7 +37,6 @@ const SignupPage = () => {
     submitLock.current = true;
     setLoader(true);
     try {
-      // Exclude confirmPassword and agreeTerms from API request
       const requestPayload = {
         username: data.username,
         email: data.email,
@@ -57,29 +56,29 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] flex items-center justify-center px-6 py-12">
-      <div className="w-full max-w-[440px] bg-[#0F0F0F] border border-[rgba(255,255,255,0.08)] rounded-[16px] p-8 md:p-12">
+    <div className="min-h-screen bg-bg-base flex items-center justify-center px-6 py-12">
+      <div className="w-full max-w-[420px] bg-bg-surface border border-border rounded-2xl p-8 md:p-10 shadow-lg">
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <Link to="/" className="flex items-center gap-2 font-display font-extrabold text-[18px] text-white">
-            <svg className="w-4 h-4 text-[#4DFFB4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" />
+          <Link to="/" className="flex items-center gap-2 font-semibold text-lg text-text-primary">
+            <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
             </svg>
-            <span>LYNKFORGE</span>
+            <span>Snipr</span>
           </Link>
         </div>
 
-        <h2 className="text-[28px] font-display font-bold text-white tracking-tight text-center mb-2">
-          Create your account.
+        <h2 className="text-2xl font-semibold text-text-primary tracking-tight text-center mb-1">
+          Create your account
         </h2>
-        <p className="text-[14px] text-[#A0A0A0] text-center mb-8">
+        <p className="text-sm text-text-secondary text-center mb-8">
           Start shortening links for free
         </p>
 
-        <form onSubmit={handleSubmit(onRegister)} className="space-y-5">
-          {/* Username */}
+        <form onSubmit={handleSubmit(onRegister)} className="space-y-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <label className="text-sm font-medium text-text-primary">
               Username
             </label>
             <input
@@ -89,13 +88,12 @@ const SignupPage = () => {
               {...register("username", { required: "Username is required" })}
             />
             {errors.username && (
-              <span className="text-[12px] text-[#FF4D4D]">{errors.username.message}</span>
+              <span className="text-xs text-destructive">{errors.username.message}</span>
             )}
           </div>
 
-          {/* Email */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <label className="text-sm font-medium text-text-primary">
               Email Address
             </label>
             <input
@@ -111,13 +109,12 @@ const SignupPage = () => {
               })}
             />
             {errors.email && (
-              <span className="text-[12px] text-[#FF4D4D]">{errors.email.message}</span>
+              <span className="text-xs text-destructive">{errors.email.message}</span>
             )}
           </div>
 
-          {/* Password */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <label className="text-sm font-medium text-text-primary">
               Password
             </label>
             <input
@@ -133,13 +130,12 @@ const SignupPage = () => {
               })}
             />
             {errors.password && (
-              <span className="text-[12px] text-[#FF4D4D]">{errors.password.message}</span>
+              <span className="text-xs text-destructive">{errors.password.message}</span>
             )}
           </div>
 
-          {/* Confirm Password */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <label className="text-sm font-medium text-text-primary">
               Confirm Password
             </label>
             <input
@@ -152,46 +148,43 @@ const SignupPage = () => {
               })}
             />
             {errors.confirmPassword && (
-              <span className="text-[12px] text-[#FF4D4D]">{errors.confirmPassword.message}</span>
+              <span className="text-xs text-destructive">{errors.confirmPassword.message}</span>
             )}
           </div>
 
-          {/* Terms Agreement Checkbox */}
-          <div className="flex items-start gap-2.5 mt-2">
+          <div className="flex items-start gap-2.5 mt-1">
             <input
               id="agreeTerms"
               type="checkbox"
-              className="mt-1 accent-[#4DFFB4] cursor-pointer"
+              className="mt-1 accent-primary cursor-pointer"
               {...register("agreeTerms", { required: true })}
             />
-            <label htmlFor="agreeTerms" className="text-[12px] text-[#A0A0A0] leading-snug cursor-pointer select-none">
+            <label htmlFor="agreeTerms" className="text-xs text-text-secondary leading-snug cursor-pointer select-none">
               I agree to the{" "}
-              <a href="/privacy" className="text-[#4DFFB4] hover:underline">
+              <Link to="/privacy" className="text-primary hover:underline">
                 Privacy Policy
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a href="/terms" className="text-[#4DFFB4] hover:underline">
+              <Link to="/terms" className="text-primary hover:underline">
                 Terms of Service
-              </a>
+              </Link>
               .
             </label>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loader}
-            className="btn-primary w-full py-3.5 text-center mt-4"
+            className="btn-primary w-full py-3 text-center mt-3 cursor-pointer"
           >
-            {loader ? "Creating Account..." : "Create Account"}
+            {loader ? "Creating account..." : "Create Account"}
           </button>
         </form>
 
-        {/* Footer Link */}
-        <p className="text-center text-[14px] text-[#A0A0A0] mt-8">
+        <p className="text-center text-sm text-text-secondary mt-8">
           Already have an account?{" "}
-          <Link to="/login" className="text-[#4DFFB4] hover:text-[#3DE8A0] font-semibold transition-colors duration-150">
-            Login →
+          <Link to="/login" className="text-primary hover:text-primary-hover font-medium transition-colors duration-normal">
+            Log in →
           </Link>
         </p>
       </div>

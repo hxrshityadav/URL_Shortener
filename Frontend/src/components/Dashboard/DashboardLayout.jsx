@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link, NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useStoreContext } from "../../contextApi/ContextApi";
-import { LayoutDashboard, PlusCircle, LogOut, Menu, X, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, PlusCircle, LogOut, Menu, X, ArrowLeft, Sun, Moon } from "lucide-react";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setToken } = useStoreContext();
+  const { setToken, theme, toggleTheme } = useStoreContext();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const onLogOut = () => {
@@ -20,102 +20,109 @@ const DashboardLayout = () => {
     { label: "Create Link", path: "/dashboard/create", icon: PlusCircle, exact: false },
   ];
 
+  const isActive = (item) =>
+    item.exact ? location.pathname === item.path : location.pathname.startsWith(item.path);
+
   return (
-    <div className="min-h-screen bg-[#080808] text-white flex flex-col md:flex-row">
+    <div className="min-h-screen bg-bg-base text-text-primary flex flex-col md:flex-row">
       {/* Mobile Top Header */}
-      <header className="md:hidden h-16 border-b border-[rgba(255,255,255,0.06)] bg-[#0A0A0A] px-6 flex items-center justify-between z-30">
-        <Link to="/" className="flex items-center gap-2 font-display font-extrabold text-[16px] text-white">
-          <svg className="w-4 h-4 text-[#4DFFB4]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" />
+      <header className="md:hidden h-14 border-b border-border bg-bg-surface px-4 flex items-center justify-between z-30">
+        <Link to="/" className="flex items-center gap-2 font-semibold text-base text-text-primary">
+          <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
           </svg>
-          <span>LYNKFORGE</span>
+          <span>Snipr</span>
         </Link>
-        <button
-          onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-          className="p-2 text-[#A0A0A0] hover:text-white"
-        >
-          {mobileSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <button onClick={toggleTheme} className="p-2 text-text-secondary hover:text-text-primary transition-colors cursor-pointer" aria-label="Toggle theme">
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <button
+            onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+            className="p-2 text-text-secondary hover:text-text-primary cursor-pointer"
+            aria-label="Toggle sidebar"
+          >
+            {mobileSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </header>
 
-      {/* Mobile Overlay Sidebar Menu */}
+      {/* Mobile Overlay */}
       {mobileSidebarOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-[#0A0A0A] z-40 flex flex-col p-6 gap-6 border-b border-[rgba(255,255,255,0.06)]">
-          <nav className="flex flex-col gap-2">
-            {navItems.map((item) => {
-              const active = item.exact
-                ? location.pathname === item.path
-                : location.pathname.startsWith(item.path);
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMobileSidebarOpen(false)}
-                  className={`nav-item ${active ? "active" : ""}`}
-                >
-                  <item.icon className="w-5 h-5" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+        <div className="md:hidden fixed inset-0 top-14 bg-bg-surface z-40 flex flex-col p-6 gap-4 border-b border-border">
+          <nav className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setMobileSidebarOpen(false)}
+                className={`nav-item ${isActive(item) ? "active" : ""}`}
+              >
+                <item.icon className="w-5 h-5" />
+                <span>{item.label}</span>
+              </Link>
+            ))}
           </nav>
-          <div className="h-[1px] bg-[rgba(255,255,255,0.06)]" />
+          <div className="h-px bg-border" />
           <button
             onClick={onLogOut}
-            className="flex items-center gap-3 px-4 py-3 text-[14px] text-[#FF4D4D] hover:bg-red-500/10 rounded-lg transition-colors duration-150 text-left"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm text-destructive hover:bg-destructive-light rounded-md transition-colors cursor-pointer"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-4 h-4" />
             <span>Logout</span>
           </button>
         </div>
       )}
 
-      {/* Desktop Left Sidebar */}
-      <aside className="hidden md:flex flex-col w-52 lg:w-60 bg-[#0A0A0A] border-r border-[rgba(255,255,255,0.06)] min-h-screen shrink-0 p-6 justify-between">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col w-56 bg-bg-surface border-r border-border min-h-screen shrink-0 p-5 justify-between">
         <div className="flex flex-col gap-8">
-          {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2 text-white font-display font-extrabold text-[18px] tracking-tight group"
+            className="flex items-center gap-2 text-text-primary font-semibold text-base tracking-tight group"
           >
             <svg
-              className="w-4 h-4 text-[#4DFFB4] transition-transform duration-300 group-hover:scale-110"
+              className="w-4 h-4 text-primary transition-transform duration-normal group-hover:scale-110"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="3"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" />
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
             </svg>
-            <span>LYNKFORGE</span>
+            <span>Snipr</span>
           </Link>
 
-          {/* Navigation */}
-          <nav className="flex flex-col gap-2">
-            {navItems.map((item) => {
-              const active = item.exact
-                ? location.pathname === item.path
-                : location.pathname.startsWith(item.path);
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`nav-item ${active ? "active" : ""}`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+          <nav className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-item ${isActive(item) ? "active" : ""}`}
+              >
+                <item.icon className="w-4 h-4" />
+                <span>{item.label}</span>
+              </Link>
+            ))}
           </nav>
         </div>
 
-        {/* Footer Area: User details + Log Out */}
-        <div className="flex flex-col gap-4">
-          <div className="h-[1px] bg-[rgba(255,255,255,0.06)]" />
+        <div className="flex flex-col gap-3">
+          <div className="h-px bg-border" />
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-3 px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-bg-elevated rounded-md transition-colors cursor-pointer"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+          </button>
           <button
             onClick={onLogOut}
-            className="flex items-center gap-3 px-4 py-2 text-[14px] text-[#A0A0A0] hover:text-[#FF4D4D] rounded-lg transition-all duration-200"
+            className="flex items-center gap-3 px-3 py-2 text-sm text-text-secondary hover:text-destructive rounded-md transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>Logout</span>
@@ -123,12 +130,12 @@ const DashboardLayout = () => {
         </div>
       </aside>
 
-      {/* Main Right Scrollable Content Area */}
-      <main className="flex-1 min-w-0 bg-[#080808] p-6 lg:p-12 overflow-y-auto">
+      {/* Main Content */}
+      <main className="flex-1 min-w-0 bg-bg-base p-6 lg:p-10 overflow-y-auto">
         {location.pathname !== "/dashboard" && (
           <button
             onClick={() => navigate(-1)}
-            className="mb-8 flex items-center gap-2 text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150 focus:outline-none"
+            className="mb-6 flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back</span>

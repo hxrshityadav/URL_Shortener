@@ -260,7 +260,7 @@ const PricingSection = () => {
       const options = {
         key: keyId,
         subscription_id: subscriptionId,
-        name: "Lynkforge",
+        name: "Snipr",
         description: `${planKey.toUpperCase()} plan (monthly)`,
         handler: () => {
           toast.success(t("pricing.paymentStarted"));

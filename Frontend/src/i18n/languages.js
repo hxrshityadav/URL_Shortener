@@ -1,4 +1,4 @@
-/** Lynkforge supports English and Hindi only. */
+/** Snipr supports English and Hindi only. */
 export const LANGUAGES = [
   { code: "en", short: "EN", label: "English" },
   { code: "hi", short: "HI", label: "हिंदी" },

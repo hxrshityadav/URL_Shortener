@@ -4,6 +4,7 @@ import { useStoreContext } from "../contextApi/ContextApi";
 import { useInView } from "../hooks/useInView";
 import api from "../api/api";
 import toast from "react-hot-toast";
+import { Link2, BarChart3, Shield, QrCode, Pencil, KeyRound, ArrowRight, Copy, Check } from "lucide-react";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ const LandingPage = () => {
   const [shortUrlResult, setShortUrlResult] = useState("");
   const [copied, setCopied] = useState(false);
 
-  // Initialize scroll animation observer
   useInView();
 
   const handleShorten = async (e) => {
@@ -49,14 +49,14 @@ const LandingPage = () => {
       const fullShortUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL}/s/${res.shortUrl}`;
       setShortUrlResult(fullShortUrl);
       setQuickUrl("");
-      toast.success("Short URL forged!");
+      toast.success("Short URL created!");
     } catch (err) {
       const status = err?.response?.status;
       if (!token && (status === 401 || status === 403)) {
-        toast.error("Limit reached. Please sign in to forge more links.");
+        toast.error("Limit reached. Please sign in to create more links.");
         navigate("/login");
       } else {
-        toast.error("Could not forge short URL. Please check your link format.");
+        toast.error("Could not create short URL. Please check your link format.");
       }
     } finally {
       setLoading(false);
@@ -71,80 +71,100 @@ const LandingPage = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  return (
-    <div className="bg-[#080808] text-white min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center pt-24 pb-16 px-6 overflow-hidden">
-        {/* Grid Overlay texture */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+  const features = [
+    { icon: Link2, title: "Custom Short Links", desc: "Create memorable slugs to represent your brand or campaigns." },
+    { icon: BarChart3, title: "Real-Time Analytics", desc: "Monitor clicks, referrer sources, and visitor demographics live." },
+    { icon: Shield, title: "Secure & Private", desc: "Password-protect sensitive destinations with encryption." },
+    { icon: QrCode, title: "QR Code Generator", desc: "Instantly create customizable high-resolution QR codes." },
+    { icon: Pencil, title: "Edit Any Link", desc: "Modify redirect destination URLs without changing your short links." },
+    { icon: KeyRound, title: "JWT Auth Flow", desc: "Secure multi-device user registration and token-based login." },
+  ];
 
-        <div className="w-full max-w-[1200px] mx-auto flex flex-col items-center text-center gap-8 relative z-10">
-          {/* Announcement Pill */}
+  const steps = [
+    { num: "01", step: "Paste Long URL", desc: "Drop your lengthy destination URL into our secure interface. Custom slug options and passwords can be applied instantly." },
+    { num: "02", step: "Customize Slug", desc: "Define a clean branding slug to increase click-through rates. Generate matching high-resolution QR codes." },
+    { num: "03", step: "Copy & Share", desc: "Instantly copy your clean short link to your clipboard. Distribute across campaigns and watch analytics stream live." },
+  ];
+
+  return (
+    <div className="bg-bg-base text-text-primary min-h-screen">
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex flex-col justify-center items-center pt-24 pb-16 px-6 overflow-hidden">
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border-default)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-default)_1px,transparent_1px)] bg-[size:48px_48px] opacity-40 pointer-events-none" />
+        {/* Radial fade */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--bg-base)_70%)] pointer-events-none" />
+
+        <div className="w-full max-w-[720px] mx-auto flex flex-col items-center text-center gap-6 relative z-10">
+          {/* Announcement */}
           <div
             data-animate
-            className="data-animate inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(77,255,180,0.08)] border border-[rgba(77,255,180,0.2)] text-[12px] font-semibold text-[#4DFFB4]"
+            className="data-animate inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-light border border-border text-xs font-medium text-primary"
           >
             <span>New: QR Code generation is live</span>
-            <span className="text-[10px] opacity-80">→</span>
+            <ArrowRight className="w-3 h-3" />
           </div>
 
           {/* Heading */}
           <h1
             data-animate
-            className="data-animate text-[48px] md:text-[80px] font-display font-extrabold leading-[0.95] tracking-[-0.03em] max-w-[800px] text-white"
+            className="data-animate text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-[-0.03em] text-text-primary"
           >
-            Forge Your <br />
-            <span className="text-[#4DFFB4]">Links.</span>
+            Shorten links.{" "}
+            <span className="text-primary">Track clicks.</span>
           </h1>
 
           {/* Subtitle */}
           <p
             data-animate
-            className="data-animate text-[16px] md:text-[18px] text-[#A0A0A0] max-w-[500px] leading-relaxed"
+            className="data-animate text-base md:text-lg text-text-secondary max-w-[480px] leading-relaxed"
           >
-            Shorten, track, and manage your URLs with precision. Built for developers and teams who move fast.
+            The fast, reliable URL shortener built for developers and teams. Create, manage, and analyze your links from one dashboard.
           </p>
 
           {/* Shortener Widget */}
-          <div data-animate className="data-animate w-full max-w-[680px] mt-4">
+          <div data-animate className="data-animate w-full max-w-[640px] mt-2">
             <form
               onSubmit={handleShorten}
-              className="flex flex-col sm:flex-row gap-3 bg-[#141414] border border-[rgba(255,255,255,0.10)] rounded-[12px] p-2.5"
+              className="flex flex-col sm:flex-row gap-2 bg-bg-surface border border-border rounded-xl p-2 shadow-md"
             >
               <input
                 type="url"
                 placeholder="Paste your long URL here..."
                 required
-                className="flex-1 bg-transparent px-4 py-3 text-[15px] font-mono text-[#4DFFB4] placeholder-[#525252] outline-none"
+                className="flex-1 bg-transparent px-4 py-3 text-sm font-mono text-text-primary placeholder-text-muted outline-none"
                 value={quickUrl}
                 onChange={(e) => setQuickUrl(e.target.value)}
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary rounded-[8px] sm:w-auto px-8 py-3.5 bg-[#4DFFB4] text-[#080808] hover:bg-[#3DE8A0] font-bold"
+                className="btn-primary rounded-lg sm:w-auto px-6 py-3 cursor-pointer"
               >
-                {loading ? "Forging..." : "Shorten"}
+                {loading ? "Creating..." : "Shorten"}
               </button>
             </form>
 
-            {/* Disclaimer */}
-            <p className="text-[12px] text-[#525252] mt-4">
-              No signup required for 3 free links &middot; Full analytics with free account
+            <p className="text-xs text-text-muted mt-3">
+              No signup required for 3 free links · Full analytics with free account
             </p>
 
-            {/* Success result widget */}
+            {/* Result */}
             {shortUrlResult && (
-              <div className="mt-6 p-4 rounded-[12px] bg-[#0F0F0F] border border-[rgba(77,255,180,0.25)] flex items-center justify-between gap-4 max-w-[600px] mx-auto animate-fade-in">
-                <span className="font-mono text-[14px] text-[#4DFFB4] truncate">
+              <div className="mt-5 p-3.5 rounded-xl bg-bg-secondary border border-border flex items-center justify-between gap-4 max-w-[580px] mx-auto shadow-sm">
+                <span className="font-mono text-sm text-primary truncate">
                   {shortUrlResult}
                 </span>
                 <button
                   type="button"
                   onClick={copyToClipboard}
-                  className="btn-primary py-2 px-4 text-[12px] bg-[#4DFFB4] text-[#080808]"
+                  className="btn-ghost py-2 px-3.5 text-xs gap-1.5 cursor-pointer"
                 >
-                  {copied ? "Copied!" : "Copy"}
+                  {copied ? (
+                    <><Check className="w-3.5 h-3.5 text-success" /> Copied</>
+                  ) : (
+                    <><Copy className="w-3.5 h-3.5" /> Copy</>
+                  )}
                 </button>
               </div>
             )}
@@ -152,115 +172,72 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Divider */}
-      <hr className="border-t border-[rgba(255,255,255,0.06)]" />
-
-      {/* Stats Strip */}
-      <section className="py-16 bg-[#0F0F0F]">
-        <div className="mx-auto max-w-[1200px] px-6 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div data-animate className="data-animate flex flex-col items-center md:items-start gap-1">
-            <span className="text-[52px] md:text-[64px] font-display font-extrabold text-[#4DFFB4] leading-none">
-              2.4B+
-            </span>
-            <span className="text-[11px] font-semibold tracking-[0.15em] text-[#525252] uppercase">
-              Links Shortened
-            </span>
-          </div>
-
-          <div data-animate className="data-animate flex flex-col items-center md:items-start gap-1 border-y md:border-y-0 md:border-x border-[rgba(255,255,255,0.06)] py-6 md:py-0 md:px-8">
-            <span className="text-[52px] md:text-[64px] font-display font-extrabold text-[#4DFFB4] leading-none">
-              99.9%
-            </span>
-            <span className="text-[11px] font-semibold tracking-[0.15em] text-[#525252] uppercase">
-              Uptime Guarantee
-            </span>
-          </div>
-
-          <div data-animate className="data-animate flex flex-col items-center md:items-start gap-1">
-            <span className="text-[52px] md:text-[64px] font-display font-extrabold text-[#4DFFB4] leading-none">
-              0ms
-            </span>
-            <span className="text-[11px] font-semibold tracking-[0.15em] text-[#525252] uppercase">
-              Redirect Latency
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <hr className="border-t border-[rgba(255,255,255,0.06)]" />
-
-      {/* Features Section */}
-      <section id="features" className="py-24 px-6 max-w-[1200px] mx-auto">
-        <div className="text-center md:text-left mb-16">
-          <h4
-            data-animate
-            className="data-animate text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase mb-2"
-          >
-            What you get
-          </h4>
-          <h2
-            data-animate
-            className="data-animate text-[36px] md:text-[52px] font-display font-bold leading-none tracking-[-0.02em] text-white"
-          >
-            Everything a link needs.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Stats */}
+      <section className="py-16 bg-bg-secondary border-y border-border">
+        <div className="mx-auto max-w-[1200px] px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { icon: "⚡", title: "Custom Short Links", desc: "Create memorable slugs to represent your brand or campaigns." },
-            { icon: "📊", title: "Real-Time Analytics", desc: "Monitor clicks, referrer sources, and visitor demographics live." },
-            { icon: "🔒", title: "Secure & Private", desc: "Password-protect sensitive destinations with encryption." },
-            { icon: "🖼️", title: "QR Code Generator", desc: "Instantly create customizable high-resolution QR codes." },
-            { icon: "✏️", title: "Edit Any Link", desc: "Modify redirect destination URLs without changing your short links." },
-            { icon: "🔑", title: "JWT Auth Flow", desc: "Secure multi-device user registration and token-based login." },
-          ].map((feat, index) => (
-            <div
-              key={index}
-              data-animate
-              className="data-animate card flex flex-col items-start gap-4"
-            >
-              <span className="text-[36px] filter drop-shadow-[0_0_8px_rgba(77,255,180,0.2)]">
-                {feat.icon}
+            { value: "2.4B+", label: "Links Shortened" },
+            { value: "99.9%", label: "Uptime Guarantee" },
+            { value: "<50ms", label: "Redirect Latency" },
+          ].map((stat, i) => (
+            <div key={i} data-animate className={`data-animate flex flex-col items-center md:items-start gap-1 ${
+              i === 1 ? "border-y md:border-y-0 md:border-x border-border py-6 md:py-0 md:px-8" : ""
+            }`}>
+              <span className="text-4xl md:text-5xl font-semibold text-text-primary leading-none tracking-tight">
+                {stat.value}
               </span>
-              <h3 className="text-[20px] font-display font-semibold text-white">
-                {feat.title}
-              </h3>
-              <p className="text-[14px] leading-relaxed text-[#A0A0A0]">
-                {feat.desc}
-              </p>
+              <span className="text-xs font-medium tracking-wider text-text-muted uppercase">
+                {stat.label}
+              </span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Divider */}
-      <hr className="border-t border-[rgba(255,255,255,0.06)]" />
+      {/* Features */}
+      <section id="features" className="py-24 px-6 max-w-[1200px] mx-auto">
+        <div className="text-center md:text-left mb-16">
+          <p data-animate className="data-animate text-xs font-medium tracking-wider text-primary uppercase mb-2">
+            What you get
+          </p>
+          <h2 data-animate className="data-animate text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight tracking-[-0.02em] text-text-primary">
+            Everything a link needs.
+          </h2>
+        </div>
 
-      {/* How It Works Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map((feat, index) => {
+            const Icon = feat.icon;
+            return (
+              <div key={index} data-animate className="data-animate card flex flex-col items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-primary-light flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-text-primary">
+                  {feat.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-text-secondary">
+                  {feat.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* How It Works */}
       <section id="how-it-works" className="py-24 px-6 max-w-[1200px] mx-auto">
         <div className="text-center mb-20">
-          <h4
-            data-animate
-            className="data-animate text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase mb-2"
-          >
+          <p data-animate className="data-animate text-xs font-medium tracking-wider text-primary uppercase mb-2">
             Process
-          </h4>
-          <h2
-            data-animate
-            className="data-animate text-[36px] md:text-[52px] font-display font-bold leading-none tracking-[-0.02em] text-white"
-          >
+          </p>
+          <h2 data-animate className="data-animate text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight tracking-[-0.02em] text-text-primary">
             How it works.
           </h2>
         </div>
 
         <div className="flex flex-col gap-16">
-          {[
-            { num: "01", step: "Paste Long URL", desc: "Drop your lengthy destination URL into our secure forging interface. Custom slug options and passwords can be applied instantly." },
-            { num: "02", step: "Customize Slug", desc: "Define a clean branding slug to increase click-through rates. Generate matching high-resolution QR codes." },
-            { num: "03", step: "Copy & Share", desc: "Instantly copy your clean short link to your clipboard. Distribute across campaigns and watch analytics stream live." }
-          ].map((item, index) => (
+          {steps.map((item, index) => (
             <div
               key={index}
               data-animate
@@ -268,16 +245,16 @@ const LandingPage = () => {
                 index % 2 === 1 ? "md:flex-row-reverse" : ""
               }`}
             >
-              {/* Number */}
-              <div className="w-full md:w-1/2 flex justify-center text-[96px] font-display font-extrabold text-[#4DFFB4] leading-none opacity-80 select-none">
-                {item.num}
+              <div className="w-full md:w-1/2 flex justify-center">
+                <span className="text-7xl md:text-8xl font-semibold text-primary/10 leading-none select-none">
+                  {item.num}
+                </span>
               </div>
-              {/* Description */}
               <div className="w-full md:w-1/2 flex flex-col gap-3 text-center md:text-left">
-                <h3 className="text-[22px] font-display font-bold text-white">
+                <h3 className="text-xl font-semibold text-text-primary">
                   {item.step}
                 </h3>
-                <p className="text-[15px] leading-relaxed text-[#A0A0A0]">
+                <p className="text-sm leading-relaxed text-text-secondary">
                   {item.desc}
                 </p>
               </div>
@@ -286,36 +263,27 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Divider */}
-      <hr className="border-t border-[rgba(255,255,255,0.06)]" />
-
-      {/* CTA Section */}
-      <section id="pricing" className="relative py-24 px-6 text-center border-t border-[rgba(77,255,180,0.15)] bg-[#0F0F0F]">
-        <div className="max-w-[600px] mx-auto flex flex-col items-center gap-6">
-          <h2
-            data-animate
-            className="data-animate text-[36px] md:text-[52px] font-display font-bold leading-none text-white italic"
-          >
-            Start forging links.
+      {/* CTA */}
+      <section id="pricing" className="py-24 px-6 text-center bg-bg-secondary border-t border-border">
+        <div className="max-w-[560px] mx-auto flex flex-col items-center gap-6">
+          <h2 data-animate className="data-animate text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight text-text-primary">
+            Ready to start?
           </h2>
-          <p
-            data-animate
-            className="data-animate text-[15px] text-[#A0A0A0] leading-relaxed"
-          >
-            Join developers and campaign teams who move fast. Claim your custom domain shortener dashboard today.
+          <p data-animate className="data-animate text-base text-text-secondary leading-relaxed">
+            Join developers and teams who move fast. Create your free account and start shortening links in seconds.
           </p>
-          <div data-animate className="data-animate flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
+          <div data-animate className="data-animate flex flex-col sm:flex-row gap-3 mt-2 w-full sm:w-auto">
             {token ? (
-              <Link to="/dashboard" className="btn-primary px-8 py-3.5">
+              <Link to="/dashboard" className="btn-primary px-8 py-3">
                 Go to Dashboard
               </Link>
             ) : (
               <>
-                <Link to="/signup" className="btn-primary px-8 py-3.5">
+                <Link to="/signup" className="btn-primary px-8 py-3">
                   Get Started Free
                 </Link>
-                <Link to="/login" className="btn-ghost px-8 py-3.5">
-                  Login to Account
+                <Link to="/login" className="btn-ghost px-8 py-3">
+                  Log in
                 </Link>
               </>
             )}

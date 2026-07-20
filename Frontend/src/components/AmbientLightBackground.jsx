@@ -1,6 +1,6 @@
 import { useReducedMotion } from "framer-motion";
 
-/** Soft light-mode backdrop — drifting mesh aligned with Lynkforge cool blues. */
+/** Soft light-mode backdrop — drifting mesh aligned with Snipr cool blues. */
 const AmbientLightBackground = () => {
   const reduceMotion = useReducedMotion();
 

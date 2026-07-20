@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT $JAVA_OPTS -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Dspring.profiles.active=prod -jar target/url-shortener-sb-0.0.1-SNAPSHOT.jar

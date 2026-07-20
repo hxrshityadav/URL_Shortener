@@ -2,46 +2,47 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#080808] border-t border-[rgba(255,255,255,0.06)] py-16">
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-20">
+    <footer className="bg-bg-secondary border-t border-border py-16">
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Column 1: Brand */}
           <div className="flex flex-col gap-4">
             <Link
               to="/"
-              className="flex items-center gap-2 text-white font-display font-extrabold text-[18px] tracking-tight group focus:outline-none"
+              className="flex items-center gap-2 text-text-primary font-semibold text-lg tracking-tight focus:outline-none"
             >
               <svg
-                className="w-4 h-4 text-[#4DFFB4]"
+                className="w-4 h-4 text-primary"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="currentColor" />
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
               </svg>
-              <span>LYNKFORGE</span>
+              <span>Snipr</span>
             </Link>
-            <p className="text-[14px] leading-relaxed text-[#A0A0A0]">
+            <p className="text-sm leading-relaxed text-text-secondary">
               Shorten, track, and manage your URLs with precision. Built for developers and teams who move fast.
             </p>
           </div>
 
           {/* Column 2: Product */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <h4 className="text-xs font-semibold tracking-wider text-text-muted uppercase">
               Product
             </h4>
             <nav className="flex flex-col gap-2.5">
-              <a href="#features" className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150">
+              <a href="#features" className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal">
                 Features
               </a>
-              <a href="#pricing" className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150">
+              <a href="#pricing" className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal">
                 Pricing
               </a>
-              <a href="#changelog" className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150">
+              <a href="#changelog" className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal">
                 Changelog
               </a>
             </nav>
@@ -49,30 +50,30 @@ const Footer = () => {
 
           {/* Column 3: Legal */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <h4 className="text-xs font-semibold tracking-wider text-text-muted uppercase">
               Legal
             </h4>
             <nav className="flex flex-col gap-2.5">
-              <a href="/privacy" className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150">
+              <Link to="/privacy" className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal">
                 Privacy Policy
-              </a>
-              <a href="/terms" className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150">
+              </Link>
+              <Link to="/terms" className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal">
                 Terms of Service
-              </a>
+              </Link>
             </nav>
           </div>
 
           {/* Column 4: Connect */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-[11px] font-semibold tracking-[0.15em] text-[#4DFFB4] uppercase">
+            <h4 className="text-xs font-semibold tracking-wider text-text-muted uppercase">
               Connect
             </h4>
             <nav className="flex flex-col gap-2.5">
               <a
-                href="https://github.com/yadavxprakhar/Lynkforge---A-URL-Shortner-App"
+                href="https://github.com/yadavxprakhar/Snipr---A-URL-Shortner-App"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150"
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal"
               >
                 GitHub
               </a>
@@ -80,7 +81,7 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[13px] text-[#A0A0A0] hover:text-white transition-colors duration-150"
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal"
               >
                 Twitter
               </a>
@@ -88,12 +89,12 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom divider and info */}
-        <div className="pt-8 border-t border-[rgba(255,255,255,0.06)] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[12px] text-[#525252]">
-            &copy; 2026 Lynkforge. All rights reserved.
+        {/* Bottom */}
+        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-text-muted">
+            &copy; 2026 Snipr. All rights reserved.
           </p>
-          <p className="text-[12px] text-[#525252]">
+          <p className="text-xs text-text-muted">
             Built with Spring Boot + React
           </p>
         </div>

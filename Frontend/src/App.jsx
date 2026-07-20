@@ -1,7 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { getApps } from './utils/helper'
-import CursorDot from './components/CursorDot'
 
 function App() {
 
@@ -9,7 +8,6 @@ function App() {
 
   return (
     <Router>
-      <CursorDot />
       <CurrentApp />
     </Router>
   )

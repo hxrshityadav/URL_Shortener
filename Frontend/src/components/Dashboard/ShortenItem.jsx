@@ -11,13 +11,11 @@ import {
   MousePointerClick,
   Trash2,
 } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
 import api from "../../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import { useStoreContext } from "../../contextApi/ContextApi";
 import { Hourglass } from "react-loader-spinner";
 import Graph from "./Graph";
-import { cardHoverSpring, tapScale } from "../../utils/motionVariants";
 import { fetchLinkAnalytics } from "../../hooks/useQuery";
 
 const ShortenItem = ({
@@ -29,7 +27,6 @@ const ShortenItem = ({
   analyticsRange,
 }) => {
   const { t } = useTranslation();
-  const reduceMotion = useReducedMotion();
   const { token } = useStoreContext();
   const navigate = useNavigate();
   const [isCopied, setIsCopied] = useState(false);
@@ -55,9 +52,7 @@ const ShortenItem = ({
   };
 
   const deleteHandler = async () => {
-    if (
-      !window.confirm(t("linkCard.deleteConfirm"))
-    ) {
+    if (!window.confirm(t("linkCard.deleteConfirm"))) {
       return;
     }
     setDeleteLoading(true);
@@ -103,85 +98,78 @@ const ShortenItem = ({
     }
   }, [selectedUrl, fetchMyShortUrl]);
 
+  useEffect(() => {
+    if (isCopied) {
+      const timer = setTimeout(() => setIsCopied(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isCopied]);
+
   return (
-    <motion.div
-      layout={false}
-      className="lx-glass-card overflow-hidden"
-      transition={cardHoverSpring}
-      whileHover={reduceMotion ? undefined : { y: -2 }}
-    >
-      <div className="flex flex-col gap-6 p-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8 sm:p-6">
-        <div className="min-w-0 flex-1 space-y-4">
+    <div className="card overflow-hidden">
+      <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+        <div className="min-w-0 flex-1 space-y-3">
           <div className="flex flex-wrap items-center gap-2">
             <Link
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-w-0 items-center gap-2 text-[15px] font-semibold text-blue-600 hover:underline dark:text-blue-400"
+              className="inline-flex min-w-0 items-center gap-1.5 text-sm font-medium text-primary hover:underline"
               to={fullShort}
             >
               <span className="truncate">{subDomain + "/s/" + shortUrl}</span>
-              <ExternalLink className="size-4 shrink-0 opacity-80" aria-hidden />
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-70" aria-hidden />
             </Link>
           </div>
 
-          <p className="break-all text-sm text-lx-muted">{originalUrl}</p>
+          <p className="break-all text-sm text-text-muted">{originalUrl}</p>
 
-          <div className="flex flex-wrap items-center gap-6 text-sm font-medium text-lx-foreground">
-            <span className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
-              <MousePointerClick className="size-4" aria-hidden />
+          <div className="flex flex-wrap items-center gap-5 text-sm">
+            <span className="inline-flex items-center gap-1.5 text-success font-medium">
+              <MousePointerClick className="w-4 h-4" aria-hidden />
               {t("linkCard.click", { count: clickCount })}
             </span>
-            <span className="inline-flex items-center gap-2 text-lx-muted">
-              <Calendar className="size-4 text-lx-foreground/80" aria-hidden />
+            <span className="inline-flex items-center gap-1.5 text-text-secondary">
+              <Calendar className="w-4 h-4" aria-hidden />
               {dayjs(createdDate).format("MMM D, YYYY")}
             </span>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-3 sm:shrink-0 sm:justify-end">
+        <div className="flex flex-wrap gap-2 sm:shrink-0 sm:justify-end">
           <CopyToClipboard
             onCopy={() => setIsCopied(true)}
             text={fullShort}
           >
-            <motion.button
+            <button
               type="button"
-              className="lx-btn-primary inline-flex gap-2 px-5 py-2.5 text-sm"
-              {...tapScale}
+              className="btn-primary inline-flex gap-1.5 px-4 py-2 text-sm cursor-pointer"
             >
               {isCopied ? (
-                <>
-                  <Check className="size-4" aria-hidden />
-                  {t("linkCard.copied")}
-                </>
+                <><Check className="w-4 h-4" aria-hidden /> {t("linkCard.copied")}</>
               ) : (
-                <>
-                  <Copy className="size-4" aria-hidden />
-                  {t("linkCard.copy")}
-                </>
+                <><Copy className="w-4 h-4" aria-hidden /> {t("linkCard.copy")}</>
               )}
-            </motion.button>
+            </button>
           </CopyToClipboard>
 
-          <motion.button
+          <button
             type="button"
             onClick={() => analyticsHandler(shortUrl)}
-            className="lx-btn-secondary inline-flex gap-2 border-blue-500/25 px-5 py-2.5 text-sm text-lx-foreground dark:border-blue-500/25"
-            {...tapScale}
+            className="btn-ghost inline-flex gap-1.5 px-4 py-2 text-sm cursor-pointer"
           >
-            <BarChart3 className="size-4 text-blue-600 dark:text-blue-400" aria-hidden />
+            <BarChart3 className="w-4 h-4 text-primary" aria-hidden />
             {t("linkCard.analytics")}
-          </motion.button>
+          </button>
 
-          <motion.button
+          <button
             type="button"
             onClick={deleteHandler}
             disabled={deleteLoading}
-            className="inline-flex gap-2 rounded-lg border border-red-500/35 bg-red-500/10 px-5 py-2.5 text-sm font-medium text-red-700 transition hover:bg-red-500/15 disabled:cursor-not-allowed disabled:opacity-60 dark:border-red-500/30 dark:text-red-400 dark:hover:bg-red-500/15"
-            {...tapScale}
+            className="btn-danger inline-flex gap-1.5 px-4 py-2 text-sm cursor-pointer"
           >
-            <Trash2 className="size-4 shrink-0" aria-hidden />
+            <Trash2 className="w-4 h-4 shrink-0" aria-hidden />
             {deleteLoading ? t("linkCard.deleting") : t("linkCard.delete")}
-          </motion.button>
+          </button>
         </div>
       </div>
 
@@ -189,7 +177,7 @@ const ShortenItem = ({
         <div
           className={`${
             analyticToggle ? "flex" : "hidden"
-          } relative min-h-[22rem] flex-col border-t border-lx-border`}
+          } relative min-h-[22rem] flex-col border-t border-border`}
         >
           {loader ? (
             <div className="flex min-h-[320px] w-full flex-col items-center justify-center gap-3">
@@ -198,18 +186,18 @@ const ShortenItem = ({
                 height="48"
                 width="48"
                 ariaLabel={t("linkCard.loadingAria")}
-                colors={["#2563eb", "#93c5fd"]}
+                colors={["var(--color-primary)", "var(--color-primary-light)"]}
               />
-              <p className="text-sm text-lx-muted">{t("linkCard.loadingAnalytics")}</p>
+              <p className="text-sm text-text-muted">{t("linkCard.loadingAnalytics")}</p>
             </div>
           ) : (
             <>
               {analyticsData.length === 0 && (
                 <div className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
-                  <p className="text-base font-semibold text-lx-foreground">
+                  <p className="text-base font-semibold text-text-primary">
                     {t("linkCard.emptyTitle")}
                   </p>
-                  <p className="mt-2 max-w-md text-sm text-lx-muted">
+                  <p className="mt-2 max-w-md text-sm text-text-muted">
                     {t("linkCard.emptySub")}
                   </p>
                 </div>
@@ -221,7 +209,7 @@ const ShortenItem = ({
           )}
         </div>
       </Fragment>
-    </motion.div>
+    </div>
   );
 };
 

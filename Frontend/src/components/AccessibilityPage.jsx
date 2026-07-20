@@ -27,7 +27,7 @@ const AccessibilityPage = () => {
 
         <div className="mt-8 space-y-6 text-[0.95rem] leading-relaxed text-slate-700 dark:text-[#cbd5e1]">
           <p>
-            Lynkforge is committed to making our website and services accessible to everyone,
+            Snipr is committed to making our website and services accessible to everyone,
             including people with disabilities. We aim to provide an inclusive experience across
             devices and assistive technologies.
           </p>

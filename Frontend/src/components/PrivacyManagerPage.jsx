@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useStoreContext } from "../contextApi/ContextApi";
 import HomeSpaceBackground from "./HomeSpaceBackground";
 
-const STORAGE_KEY = "LYNKFORGE_PRIVACY_PREFS";
+const STORAGE_KEY = "SNIPR_PRIVACY_PREFS";
 
 function parsePrefs(raw) {
   const parsed = JSON.parse(raw);

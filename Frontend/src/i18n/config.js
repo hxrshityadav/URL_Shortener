@@ -36,7 +36,7 @@ i18next
     detection: {
       order: ["localStorage", "navigator", "htmlTag"],
       caches: ["localStorage"],
-      lookupLocalStorage: "lynkforge_i18nextLng",
+      lookupLocalStorage: "snipr_i18nextLng",
     },
   })
   .then(() => {

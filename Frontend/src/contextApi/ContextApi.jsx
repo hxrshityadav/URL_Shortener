@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-const STORAGE_KEY = "LYNKFORGE_THEME";
+const STORAGE_KEY = "SNIPR_THEME";
 
 function getStoredTheme() {
   if (typeof window === "undefined") return "light";

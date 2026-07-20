@@ -21,7 +21,6 @@ import TermsPage from "./components/TermsPage";
 const AppRouter = () => {
   const { pathname, hash } = useLocation();
   
-  // Header and footer are hidden inside dashboard content to let the dashboard use its fixed sidebar layout cleanly.
   const isDashboard = pathname.startsWith("/dashboard");
   const isRedirect = pathname.startsWith("/s/");
 
@@ -36,30 +35,31 @@ const AppRouter = () => {
   }, [pathname, hash]);
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#080808] text-white selection:bg-[#4DFFB4]/30 selection:text-white">
+    <div className="relative min-h-screen flex flex-col bg-bg-base text-text-primary selection:bg-primary-light selection:text-primary">
       {!isDashboard && !isRedirect && <Navbar />}
       
       <Toaster
         position="bottom-center"
         toastOptions={{
           style: {
-            background: "#141414",
-            color: "#FFFFFF",
-            border: "1px solid rgba(255, 255, 255, 0.07)",
-            borderRadius: "0.5rem",
+            background: "var(--bg-surface)",
+            color: "var(--text-primary)",
+            border: "1px solid var(--border-default)",
+            borderRadius: "var(--radius-lg)",
             fontSize: "14px",
-            fontFamily: "Inter, sans-serif",
+            fontFamily: "var(--font-sans)",
+            boxShadow: "var(--shadow-lg)",
           },
           success: {
             iconTheme: {
-              primary: "#4DFFB4",
-              secondary: "#080808",
+              primary: "var(--color-success)",
+              secondary: "var(--bg-surface)",
             },
           },
           error: {
             iconTheme: {
-              primary: "#FF4D4D",
-              secondary: "#080808",
+              primary: "var(--color-destructive)",
+              secondary: "var(--bg-surface)",
             },
           },
         }}
@@ -118,7 +118,7 @@ export default AppRouter;
 
 export const SubDomainRouter = () => {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#080808] text-white">
+    <div className="relative min-h-screen flex flex-col bg-bg-base text-text-primary">
       <Routes>
         <Route path="/:url" element={<ShortenUrlPage />} />
       </Routes>
