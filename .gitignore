@@ -3,6 +3,7 @@
 .env
 node_modules/
 .venv-img/
+.agents/
+.vscode/
 graphify-out/
 skills-lock.json
-
