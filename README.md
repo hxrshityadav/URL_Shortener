@@ -20,9 +20,13 @@
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
+- [System Architecture & Diagrams](#-system-architecture--diagrams)
+  - [High-Level System Architecture](#high-level-system-architecture)
+  - [URL Shortening & Redirection Flow](#url-shortening--redirection-flow)
+  - [JWT Authentication Sequence](#jwt-authentication-sequence)
 - [Tech Stack](#-tech-stack)
-- [Project Architecture & Structure](#-project-architecture--structure)
-- [Step-by-Step Quick Start Guide](#-step-by-step-quick-start-guide)
+- [Project Directory Structure](#-project-directory-structure)
+- [Step-by-Step Installation & Local Setup Guide](#-step-by-step-installation--local-setup-guide)
   - [1. Prerequisites](#1-prerequisites)
   - [2. Clone the Repository](#2-clone-the-repository)
   - [3. Database Setup](#3-database-setup)
@@ -30,7 +34,7 @@
   - [5. Frontend Configuration & Launch](#5-frontend-configuration--launch)
 - [Environment Variables](#-environment-variables)
 - [Core REST API Reference](#-core-rest-api-reference)
-- [Deployment](#-deployment)
+- [Deployment Guide](#-deployment-guide)
 - [Contributing](#-contributing)
 - [License](#-license)
 
@@ -38,11 +42,11 @@
 
 ## 🔗 Overview
 
-**Lynkforge** (also known as **Snipr**) is a full-stack, enterprise-ready URL shortening and link management platform built with a high-performance **Spring Boot 3** backend and a responsive **React 18** frontend. 
+**Lynkforge** (also known as **Snipr**) is a full-stack, production-ready URL shortening and link management platform built with a high-performance **Spring Boot 3** backend and a responsive **React 18** frontend. 
 
 It provides seamless link shortening, custom link alias creation, instant QR code generation, real-time click analytics, user subscription tier management powered by Razorpay, and multi-language internationalization (i18n).
 
-> **Architectural Goal:** Built to demonstrate secure backend API design, stateless JWT security, clean database layer persistence with Spring Data JPA/Hibernate, and interactive frontend data visualization using Chart.js & Framer Motion.
+> **Architectural Goal:** Demonstrates enterprise software architecture, stateless JWT security, clean database layer persistence with Spring Data JPA/Hibernate, and interactive frontend data visualization using Chart.js & Framer Motion.
 
 ---
 
@@ -50,11 +54,135 @@ It provides seamless link shortening, custom link alias creation, instant QR cod
 
 | Category | Features |
 | :--- | :--- |
-| 🔗 **Link Management** | • Shorten long URLs into custom short links.<br>• Custom link alias support.<br>• Instant QR Code generation for any link.<br>• Automated high-speed HTTP 302 redirections. |
+| 🔗 **Link Management** | • Shorten long URLs into compact, shareable short links.<br>• Custom link alias support.<br>• Instant QR Code generation for any link.<br>• Automated high-speed HTTP 302 redirections. |
 | 📊 **Real-time Analytics** | • Click counts & timestamped tracking.<br>• Interactive analytics dashboard with Chart.js & Recharts.<br>• Device & click volume metrics over custom date ranges. |
 | 🔒 **Security & Auth** | • Stateless JWT authentication & role-based authorization.<br>• Encrypted password storage using BCrypt.<br>• Granular CORS filters and secure response headers. |
 | 💳 **Monetization & Billing** | • Tiered membership plans (Free, Pro, Business).<br>• Seamless Razorpay payment gateway integration.<br>• Automated webhooks for subscription management. |
 | 🌐 **Modern UX & i18n** | • Built with React 18, Vite, and Tailwind CSS.<br>• Smooth micro-animations with Framer Motion.<br>• Multi-language UI support via `i18next`. |
+
+---
+
+## 📊 System Architecture & Diagrams
+
+### High-Level System Architecture
+
+```mermaid
+flowchart TD
+    subgraph Client ["Client Layer (Frontend)"]
+        UI["React 18 + Vite Web App"]
+        TW["Tailwind CSS + Framer Motion"]
+        Chart["Chart.js / Recharts"]
+    end
+
+    subgraph Gateway ["Security & API Routing"]
+        CORS["CORS Filter"]
+        JWT["JWT Authentication Filter"]
+        SecConfig["Spring Security Config"]
+    end
+
+    subgraph Backend ["Backend Business Logic (Spring Boot 3)"]
+        AuthCtrl["Auth Controller"]
+        UrlCtrl["UrlMapping Controller"]
+        AnalyticsCtrl["Analytics Controller"]
+        PayCtrl["Payment Controller"]
+        
+        UrlService["UrlMapping Service"]
+        UserService["User Service"]
+        RazorpayService["Razorpay Service"]
+    end
+
+    subgraph Data ["Data & External Services"]
+        JPA["Spring Data JPA / Hibernate"]
+        DB[(PostgreSQL / MySQL Database)]
+        Razorpay[("Razorpay Payment Gateway")]
+    end
+
+    UI -->|HTTPS / REST API| CORS
+    CORS --> JWT
+    JWT --> SecConfig
+    SecConfig --> AuthCtrl
+    SecConfig --> UrlCtrl
+    SecConfig --> AnalyticsCtrl
+    SecConfig --> PayCtrl
+
+    AuthCtrl --> UserService
+    UrlCtrl --> UrlService
+    AnalyticsCtrl --> UrlService
+    PayCtrl --> RazorpayService
+
+    UserService --> JPA
+    UrlService --> JPA
+    JPA --> DB
+    RazorpayService -->|Webhooks & Orders| Razorpay
+```
+
+---
+
+### URL Shortening & Redirection Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as User / Visitor
+    participant Frontend as React Client
+    participant Backend as Spring Boot API
+    participant DB as PostgreSQL DB
+    actor External as Destination Site
+
+    %% Shorten Flow
+    rect rgb(240, 248, 255)
+    note right of User: 1. URL Shortening Flow
+    User->>Frontend: Input Long URL (+ Optional Alias)
+    Frontend->>Backend: POST /api/urls/shorten (Bearer Token)
+    Backend->>DB: Save UrlMapping (Original URL, Short Code, User ID)
+    DB-->>Backend: Saved UrlMapping Object
+    Backend-->>Frontend: 200 OK (Short Code, Short URL, QR Code Data)
+    Frontend-->>User: Display Short Link & QR Code
+    end
+
+    %% Redirection Flow
+    rect rgb(255, 245, 238)
+    note right of User: 2. Redirect & Analytics Flow
+    User->>Backend: GET /{shortUrl}
+    Backend->>DB: Query Target URL by Short Code
+    DB-->>Backend: Return Original URL Mapping
+    Backend->>DB: Async Record Click Event (Timestamp, Device, IP)
+    Backend-->>User: HTTP 302 Redirect (Location: Original URL)
+    User->>External: Navigate to Destination Site
+    end
+```
+
+---
+
+### JWT Authentication Sequence
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as User
+    participant App as React Application
+    participant Security as Spring Security Filter
+    participant Manager as Auth Manager
+    participant JWT as JWT Utility Provider
+    participant DB as PostgreSQL DB
+
+    User->>App: Enter Credentials (Username & Password)
+    App->>Security: POST /api/auth/public/login
+    Security->>Manager: authenticate(UsernamePasswordAuthenticationToken)
+    Manager->>DB: Fetch UserDetails & Hashed Password (BCrypt)
+    DB-->>Manager: User Entity
+    Manager-->>Security: Authentication Approved
+    Security->>JWT: generateJwtToken(Authentication)
+    JWT-->>Security: Signed JWT Token String
+    Security-->>App: 200 OK (JWT Token + User Profile)
+    App->>App: Store JWT in LocalStorage / Context State
+
+    note over App, Security: Subsequent Authenticated Requests
+    App->>Security: GET /api/urls/myurls (Header: Authorization Bearer <JWT>)
+    Security->>JWT: validateJwtToken(JWT)
+    JWT-->>Security: Token Valid (User ID & Claims)
+    Security-->>App: 200 OK (Protected Data Response)
+```
 
 ---
 
@@ -82,7 +210,7 @@ It provides seamless link shortening, custom link alias creation, instant QR cod
 
 ---
 
-## 📁 Project Architecture & Structure
+## 📁 Project Directory Structure
 
 ```
 URL_Shortener/
@@ -90,52 +218,52 @@ URL_Shortener/
 │   ├── src/main/java/com/url/shortener/
 │   │   ├── controller/            # REST Controllers (Auth, URL, Analytics, Payment)
 │   │   ├── dtos/                  # Request & Response Data Transfer Objects
-│   │   ├── models/                # JPA Domain Entities (User, UrlMapping, ClickEvent)
+│   │   ├── models/                # JPA Entities (User, UrlMapping, ClickEvent)
 │   │   ├── repository/            # Spring Data JPA Repositories
 │   │   ├── security/              # JWT Filters, UserDetails & Security Config
-│   │   └── service/               # Core Business Logic & Razorpay Service
+│   │   └── service/               # Business Logic & Razorpay Integration
 │   ├── src/main/resources/
 │   │   ├── application.properties      # Development Configuration
 │   │   └── application-prod.properties # Production Configuration
-│   ├── Dockerfile                 # Backend Container Setup
-│   └── pom.xml                    # Maven Dependencies & Build Script
+│   ├── Dockerfile                 # Multi-Stage Backend Container Build
+│   └── pom.xml                    # Maven Configuration & Dependencies
 │
 ├── Frontend/                      # React 18 + Vite Web Client
 │   ├── src/
-│   │   ├── components/            # UI Components (Dashboard, Analytics, Auth Modal)
+│   │   ├── components/            # UI Components (Dashboard, Analytics, Auth)
 │   │   ├── context/               # Global React Context State (Auth Context)
 │   │   ├── api/                   # Axios API Interceptors & Service Calls
-│   │   ├── i18n/                  # Language Translation Bundles
+│   │   ├── i18n/                  # Multi-language Translation Bundles
 │   │   ├── App.jsx                # Main Application Router
 │   │   └── index.css              # Global Tailwind Styles
-│   ├── package.json               # NPM Dependencies & Scripts
-│   ├── tailwind.config.js         # Tailwind Custom Theme Tokens
+│   ├── package.json               # NPM Dependencies & Build Scripts
+│   ├── tailwind.config.js         # Custom Tailwind Design System Tokens
 │   └── vite.config.js             # Vite Server Configuration
 │
-└── README.md                      # Project Documentation
+└── README.md                      # Complete Project Documentation
 ```
 
 ---
 
-## ⚡ Step-by-Step Quick Start Guide
+## ⚡ Step-by-Step Installation & Local Setup Guide
 
-Follow these simple steps to set up and run **Lynkforge** on your local system.
+Follow these step-by-step instructions to set up and run **Lynkforge** on your machine.
 
 ---
 
 ### 1. Prerequisites
 
-Ensure you have the following installed on your developer machine:
+Make sure you have the following installed:
 - **Java JDK 17** or higher (`java -version`)
 - **Node.js v18.x** or higher & **npm** (`node -v`, `npm -v`)
-- **PostgreSQL 15+** or **Docker Desktop** (for running PostgreSQL in a container)
+- **PostgreSQL 15+** or **Docker Desktop**
 - **Git** (`git --version`)
 
 ---
 
 ### 2. Clone the Repository
 
-Clone the project from GitHub and navigate into the workspace directory:
+Clone the project from GitHub and enter the root directory:
 
 ```bash
 git clone https://github.com/hxrshityadav/URL_Shortener.git
@@ -146,25 +274,20 @@ cd URL_Shortener
 
 ### 3. Database Setup
 
-You can run PostgreSQL locally or launch it instantly using Docker.
+You can run PostgreSQL either locally or using Docker.
 
-#### Option A: Using Docker (Recommended)
-Run a quick PostgreSQL container on port `5433`:
-
-```bash
-docker run --name postgres-snipr \
-  -e POSTGRES_DB=url_shortener \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -p 5433:5432 \
-  -d postgres:15
-```
-
-#### Option B: Using Local PostgreSQL Installation
-Create a database named `url_shortener` via `psql` or pgAdmin:
+#### Option A: Local PostgreSQL Setup
+Create a database named `url_shortener` using `psql` or pgAdmin:
 
 ```sql
 CREATE DATABASE url_shortener;
+```
+
+#### Option B: Docker Setup
+Run a PostgreSQL container:
+
+```bash
+docker run --name postgres-snipr -e POSTGRES_DB=url_shortener -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5433:5432 -d postgres:15
 ```
 
 ---
@@ -176,7 +299,7 @@ CREATE DATABASE url_shortener;
    cd Backend
    ```
 
-2. *(Optional)* Configure environment variables or modify `src/main/resources/application.properties` if your database credentials differ:
+2. Review or update `src/main/resources/application.properties`:
    ```properties
    spring.datasource.url=jdbc:postgresql://localhost:5433/url_shortener
    spring.datasource.username=postgres
@@ -184,32 +307,34 @@ CREATE DATABASE url_shortener;
    jwt.secret=snipr-dev-jwt-hmac-secret-at-least-thirty-two-bytes-long
    ```
 
-3. Build and launch the Spring Boot application:
-   ```bash
-   # On Windows PowerShell / Command Prompt:
-   .\mvnw.cmd spring-boot:run
+3. Build and launch the Spring Boot backend server:
 
-   # On macOS / Linux:
-   ./mvnw spring-boot:run
-   ```
+   - **Windows (PowerShell / CMD):**
+     ```powershell
+     .\mvnw.cmd spring-boot:run
+     ```
+   - **macOS / Linux:**
+     ```bash
+     ./mvnw spring-boot:run
+     ```
 
-4. The backend server will start running at **`http://localhost:8080`**.
+4. The backend server will start at **`http://localhost:8080`**.
 
 ---
 
 ### 5. Frontend Configuration & Launch
 
-1. Open a new terminal window and navigate to the `Frontend` directory:
+1. Open a new terminal and navigate to the `Frontend` directory:
    ```bash
    cd Frontend
    ```
 
-2. Install all required npm packages:
+2. Install npm dependencies:
    ```bash
    npm install
    ```
 
-3. Create or verify the local `.env` configuration file in the `Frontend` directory:
+3. Verify or create the `.env` file in the `Frontend` root directory:
    ```env
    VITE_BACKEND_URL=http://localhost:8080
    VITE_REACT_FRONT_END_URL=http://localhost:5173
@@ -220,32 +345,30 @@ CREATE DATABASE url_shortener;
    npm run dev
    ```
 
-5. Open your web browser and navigate to **`http://localhost:5173`**.
-
-🎉 **Congratulations!** You now have the full Lynkforge stack running locally!
+5. Open your browser and visit **`http://localhost:5173`**.
 
 ---
 
 ## 🔑 Environment Variables
 
-### Backend Configuration (`Backend/src/main/resources/application.properties`)
+### Backend (`Backend/src/main/resources/application.properties`)
 
 | Environment Variable | Default Value | Description |
 | :--- | :--- | :--- |
-| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://localhost:5433/url_shortener` | PostgreSQL Connection URL |
+| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://localhost:5433/url_shortener` | PostgreSQL Database Connection URL |
 | `SPRING_DATASOURCE_USERNAME` | `postgres` | Database Username |
 | `SPRING_DATASOURCE_PASSWORD` | `postgres` | Database Password |
-| `JWT_SECRET` | `snipr-dev-jwt-hmac-secret...` | HMAC SHA secret key for JWT signing |
-| `FRONTEND_URL` | `http://localhost:5173` | Allowed CORS origin for frontend |
-| `RAZORPAY_KEY_ID` | `""` *(Optional)* | Razorpay Gateway API Key ID |
-| `RAZORPAY_KEY_SECRET` | `""` *(Optional)* | Razorpay Gateway API Secret |
+| `JWT_SECRET` | `snipr-dev-jwt-hmac-secret...` | HMAC SHA signing secret for JWT |
+| `FRONTEND_URL` | `http://localhost:5173` | CORS allowed origin for frontend client |
+| `RAZORPAY_KEY_ID` | `""` *(Optional)* | Razorpay Payment Key ID |
+| `RAZORPAY_KEY_SECRET` | `""` *(Optional)* | Razorpay Payment Secret |
 
-### Frontend Configuration (`Frontend/.env`)
+### Frontend (`Frontend/.env`)
 
 | Variable Name | Default Value | Description |
 | :--- | :--- | :--- |
-| `VITE_BACKEND_URL` | `http://localhost:8080` | URL of the running Spring Boot API server |
-| `VITE_REACT_FRONT_END_URL` | `http://localhost:5173` | Public origin URL of the React application |
+| `VITE_BACKEND_URL` | `http://localhost:8080` | URL of the backend Spring Boot API server |
+| `VITE_REACT_FRONT_END_URL` | `http://localhost:5173` | Frontend application client URL |
 
 ---
 
@@ -253,31 +376,39 @@ CREATE DATABASE url_shortener;
 
 | HTTP Method | Endpoint Path | Auth Required | Description |
 | :--- | :--- | :---: | :--- |
-| `POST` | `/api/auth/public/register` | ❌ No | Create a new user account |
-| `POST` | `/api/auth/public/login` | ❌ No | Authenticate user & receive JWT |
-| `POST` | `/api/urls/shorten` | 🔒 Yes | Shorten a long URL |
-| `GET` | `/api/urls/myurls` | 🔒 Yes | Fetch all URLs created by authenticated user |
-| `GET` | `/api/urls/analytics/{shortUrl}` | 🔒 Yes | Fetch click analytics for a specific URL |
-| `GET` | `/{shortUrl}` | ❌ No | Redirect to destination target URL |
-| `POST` | `/api/payments/create-order` | 🔒 Yes | Initiate a Razorpay payment order |
+| `POST` | `/api/auth/public/register` | ❌ No | Register a new user account |
+| `POST` | `/api/auth/public/login` | ❌ No | Authenticate user & receive JWT token |
+| `POST` | `/api/urls/shorten` | 🔒 Yes | Create a short URL with optional alias |
+| `GET` | `/api/urls/myurls` | 🔒 Yes | Fetch all URLs created by the logged-in user |
+| `GET` | `/api/urls/analytics/{shortUrl}` | 🔒 Yes | Fetch click analytics for a specific short link |
+| `GET` | `/{shortUrl}` | ❌ No | Public HTTP 302 redirection to original target URL |
+| `POST` | `/api/payments/create-order` | 🔒 Yes | Create a Razorpay subscription payment order |
 
 ---
 
-## 🚀 Deployment
+## 🚀 Deployment Guide
 
-- **Backend Containerization:** A production-ready `Dockerfile` is provided in `/Backend/Dockerfile`. It compiles the JAR artifact via multi-stage builds and runs in a lightweight Alpine JDK runtime.
-- **Frontend Build:** Run `npm run build` in `/Frontend` to create an optimized production bundle inside the `dist/` directory, ready to serve via Nginx or Vercel.
+- **Backend Containerization:** A production multi-stage `Dockerfile` is included in `/Backend/Dockerfile`. Build the Docker image:
+  ```bash
+  docker build -t lynkforge-backend ./Backend
+  ```
+- **Frontend Production Build:** Build the static SPA distribution:
+  ```bash
+  cd Frontend
+  npm run build
+  ```
+  The built files in `dist/` can be deployed on Vercel, Netlify, or AWS S3 + CloudFront.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions make the open-source community an incredible place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are welcome! Follow these steps:
 
-1. Fork the Project
+1. Fork the Repository
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git checkout -b feature/AmazingFeature`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ---
@@ -287,5 +418,5 @@ Contributions make the open-source community an incredible place to learn, inspi
 Distributed under the **MIT License**. See `LICENSE` for more information.
 
 <div align="center">
-  <sub>Designed & Developed by <a href="https://github.com/hxrshityadav">Harshit Yadav</a>. Crafted with ❤️ for engineers worldwide.</sub>
+  <sub>Designed & Developed by <a href="https://github.com/hxrshityadav">Harshit Yadav</a>. Built with ❤️ for developers worldwide.</sub>
 </div>
