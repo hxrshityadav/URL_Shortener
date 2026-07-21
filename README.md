@@ -1,6 +1,6 @@
 <div align="center">
 
-  # 🚀 Lynkforge (Snipr)
+  # 🚀 Snipr
   ### *Enterprise-Grade Full-Stack URL Shortener & Analytics Platform*
 
   [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
@@ -42,7 +42,7 @@
 
 ## 🔗 Overview
 
-**Lynkforge** (also known as **Snipr**) is a full-stack, production-ready URL shortening and link management platform built with a high-performance **Spring Boot 3** backend and a responsive **React 18** frontend. 
+**Snipr** is a full-stack, production-ready URL shortening and link management platform built with a high-performance **Spring Boot 3** backend and a responsive **React 18** frontend. 
 
 It provides seamless link shortening, custom link alias creation, instant QR code generation, real-time click analytics, user subscription tier management powered by Razorpay, and multi-language internationalization (i18n).
 
@@ -247,7 +247,7 @@ URL_Shortener/
 
 ## ⚡ Step-by-Step Installation & Local Setup Guide
 
-Follow these step-by-step instructions to set up and run **Lynkforge** on your machine.
+Follow these step-by-step instructions to set up and run **Snipr** on your machine.
 
 ---
 
@@ -390,7 +390,7 @@ docker run --name postgres-snipr -e POSTGRES_DB=url_shortener -e POSTGRES_USER=p
 
 - **Backend Containerization:** A production multi-stage `Dockerfile` is included in `/Backend/Dockerfile`. Build the Docker image:
   ```bash
-  docker build -t lynkforge-backend ./Backend
+  docker build -t snipr-backend ./Backend
   ```
 - **Frontend Production Build:** Build the static SPA distribution:
   ```bash
