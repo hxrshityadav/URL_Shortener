@@ -1,7 +1,7 @@
 <div align="center">
 
   # 🚀 Snipr
-  ### *Enterprise-Grade Full-Stack URL Shortener & Analytics Platform*
+  ### *Full Stack URL Shortener & Analytics Platform*
 
   [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
   [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
