@@ -1,6 +1,6 @@
 <div align="center">
 
-  # 🚀 Snipr
+  # 🚀 Snipr: A URL Shortener
   ### *Full Stack URL Shortener & Analytics Platform*
 
   [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
